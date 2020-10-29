@@ -11,19 +11,14 @@ public class PalindromeNumber {
 
     public static boolean isPalindrome(int x) {
 
-        String paramStr = String.valueOf(x);
+        char[] chars = String.valueOf(x).toCharArray();
 
-        char[] chars = paramStr.toCharArray();
-
-        boolean res = false;
         for (int i = 0,j = chars.length - 1; i <= j; i++,j--) {
-            if(chars[i] == chars[j]){
-                res = true;
-            }else{
+            if(chars[i] != chars[j]){
                 return false;
             }
         }
 
-        return res;
+        return true;
     }
 }
