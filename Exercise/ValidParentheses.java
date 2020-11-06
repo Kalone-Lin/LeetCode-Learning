@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * lin.she
@@ -13,27 +10,63 @@ public class ValidParentheses {
 
     public static void main(String[] args) {
 
-        String s = "([]{})";
+        String s = "{[]()([])}";
         boolean valid = isValid(s);
         System.out.println(valid);
 
     }
 
+
+
+
     public static boolean isValid(String s) {
 
-        Map<Character,Character> base = new HashMap<>();
-        base.put('(',')');
-        base.put('[',']');
-        base.put('{','}');
-
         char[] chars = s.toCharArray();
-        List<Character> stack = new ArrayList<>();
+
+        Stack<Character> stack = new Stack<>();
+
+        Stack<Character> stackAfter = new Stack<>();
 
         for (int i = 0; i < chars.length; i++) {
-            stack.add(chars[i]);
+            switch(chars[i]){
+                case '{':
+                    stack.push(chars[i]);
+                    break;
+                case '[':
+                    stack.push(chars[i]);
+                    break;
+                case '(':
+                    stack.push(chars[i]);
+                    break;
+                case '}':
+                    if(!stack.empty() && stack.peek() == '{'){
+                        stack.pop();
+                    }else {
+                        stackAfter.push(chars[i]);
+                    }
+                    break;
+                case ']':
+                    if(!stack.empty() && stack.peek() == '['){
+                        stack.pop();
+                    }else {
+                        stackAfter.push(chars[i]);
+                    }
+                    break;
+                case ')':
+                    if(!stack.empty() && stack.peek() == '('){
+                        stack.pop();
+                    }else {
+                        stackAfter.push(chars[i]);
+                    }
+                    break;
+            }
         }
 
-        return true;
+        if(stack.empty() && stackAfter.empty()){
+            return true;
+        }else {
+            return false;
+        }
     }
 
 }
