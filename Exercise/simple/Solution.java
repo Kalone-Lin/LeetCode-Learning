@@ -1,3 +1,5 @@
+package simple;
+
 /**
  * 有序合并两个序列
  *
