@@ -15,6 +15,12 @@ public class MedianSolution {
         System.out.println(count);
     }
 
+    /**'
+     * 执行率慢
+     * @param nums1 数组1
+     * @param nums2 数组2
+     * @return 中位值数
+     */
     public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
         // 1合并两数组
         int[] c= new int[nums1.length+nums2.length];
