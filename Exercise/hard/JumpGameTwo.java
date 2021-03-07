@@ -11,6 +11,8 @@ package hard;
  */
 public class JumpGameTwo {
 
+
+
     public static void main(String[] args) {
         //2,3,1,1,4
         //2,2,2,3,4
