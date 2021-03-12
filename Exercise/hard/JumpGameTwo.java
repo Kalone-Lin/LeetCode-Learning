@@ -20,13 +20,42 @@ public class JumpGameTwo {
         //1,2,3
         //1,1,1,1,1
         //10,9,8,7,6,5,4,3,2,1,1,0
-        int[] nums = {10,9,8,7,6,5,4,3,2,1,1,0};
+        //4,1,1,3,1,1,1
+        int[] nums = {4,1,1,3,1,1,1};
         int jump = jump(nums);
         System.out.println(jump);
     }
 
-    public static int jump(int[] nums) {
-        if (nums.length == 0 || nums.length == 1) {
+    public static int jump (int[] nums) {
+        if (nums.length <= 1) {
+            return 0;
+        }
+        if (nums[0] >= nums.length - 1) {
+            return 1;
+        }
+        int res = 0;
+        for (int i = 0; i < nums.length;) {
+            int index = i;
+            int value = nums[i];
+            int allStep = index + value;
+            for (int j = i; j < (allStep > nums.length ? nums.length : allStep) ; j++) {
+                if (nums[j] > value) {
+                    i = j;
+                }
+            }
+            if (index == i) {
+                i += nums[i];
+            }
+            res++;
+            if (index + value >= nums.length - 1) {
+                break;
+            }
+        }
+        return res;
+    }
+
+    public static int jump_1(int[] nums) {
+        if (nums.length <= 1) {
             return 0;
         }
         if (nums[0] >= nums.length - 1) {
@@ -35,7 +64,7 @@ public class JumpGameTwo {
         int res = 1;
         int index = 0;
         for (int i = 0; i < nums.length; i = index) {
-            int maxNum = 0;
+            int maxNum = nums[0];
             for (int j = i + 1; j <= nums[i] + i; j++) {
                 if (nums[j] >= maxNum) {
                     maxNum = nums[j];
@@ -48,5 +77,26 @@ public class JumpGameTwo {
             }
         }
         return res;
+    }
+
+    public int jump_2(int[] nums) {
+        int[] dp = new int[nums.length];
+        dp[0] = 0;
+        if(nums.length == 1) {
+            return 0;
+        }
+        dp[1] = 1;
+        for(int i = 2; i < nums.length; i++) {
+            int min = Integer.MAX_VALUE;
+            for(int j = i - 1; j >= 0; j--) {
+                if(nums[j] >= i - j) {
+                    if(dp[j] < Integer.MAX_VALUE && dp[j] + 1 < min) {
+                        min = dp[j] + 1;
+                    }
+                }
+            }
+            dp[i] = min;
+        }
+        return dp[nums.length - 1];
     }
 }
